@@ -2,7 +2,7 @@ Storing data across multiple uses is critical for a winning app or game.  Who wo
 
 # Setting up NSUserDefaults
 
-Apple provides a simple interface for accessing defaults.  The class provides a singleton, *standardUserDefaults()*, to get an object to read from and write to.  The object you get back can be treated as a dictionary, since all objects stored and retrieved are done on a key-value basis.  The only difference is that subscripting (as in *dictionary["key"]*) is not available, so calling the correct method is necessary to store or retrieve data.
+Apple provides a simple interface for accessing defaults.  The class provides a [singleton](https://en.wikipedia.org/wiki/Singleton_pattern), *standardUserDefaults()*, to get an object to read from and write to.  The object you get back can be treated as a dictionary, since all objects stored and retrieved are done on a key-value basis.  The only difference is that subscripting (as in *dictionary["key"]*) is not available, so calling the correct method is necessary to store or retrieve data.
 
 There are read and write methods for all [property list types](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/PropertyLists/AboutPropertyLists/AboutPropertyLists.html#//apple_ref/doc/uid/10000048i-CH3-54303).  What that means is right away you can store strings, integers, floating point numbers, dates, booleans, binary data, and both arrays and dictionaries that contain the previous types.
 
@@ -28,7 +28,7 @@ Now we will see a class that uses *NSUserDefaults* to store data, as well as a f
 
 One new function you may notice is *synchronize()* called after both of the properties are set.  This is a **critical** step that has to happen.  **Without it, the changes you make to the standard defaults will not persist**.  If you are new to Swift, there may be a couple strange looking operations associated with the properties.  
 
-The first is the *??* operator.  This is called a [null coalescing operator](https://en.wikipedia.org/wiki/Null_coalescing_operator).  Since the retrieval methods return an optional wrapped type, we need a way to handle the potential nil value.  The null coalescing operator checks the left value for null, and if true, substitutes the null for the right value.  This will prevent a nil value from being assigned to the property.  
+The first is the *??* operator.  This is called a [null coalescing operator](https://en.wikipedia.org/wiki/Null_coalescing_operator).  Since the retrieval methods return an optional wrapped type, we need a way to handle the potential null value.  The null coalescing operator checks the left value for null, and if true, substitutes the null for the right value.  This will prevent a null value from being assigned to the property.  
 
 The second is the *didSet*.  It is a [property observer](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Properties.html#//apple_ref/doc/uid/TP40014097-CH14-ID262).  The block of code, also called a [closure](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html), contained after the *didSet* is executed after the property is updated.  This will automatically save the change to the defaults when it is changed.
 
